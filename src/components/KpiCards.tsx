@@ -1,0 +1,71 @@
+import { Activity, CalendarClock, MousePointerClick } from "lucide-react";
+
+import type { DailyEntry } from "../services/api";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+
+type KpiCardsProps = {
+  totalClicks: number;
+  daily: DailyEntry[];
+};
+
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("es-CO", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(`${value}T00:00:00`));
+}
+
+export function KpiCards({ totalClicks, daily }: KpiCardsProps) {
+  const peak = daily.reduce<DailyEntry | null>((current, entry) => {
+    if (!current || entry.clicks > current.clicks) {
+      return entry;
+    }
+
+    return current;
+  }, null);
+
+  const average = daily.length > 0 ? Math.round(totalClicks / daily.length) : 0;
+
+  const cards = [
+    {
+      title: "Total clicks",
+      value: totalClicks.toLocaleString("es-CO"),
+      helper: `${daily.length} dias consultados`,
+      icon: MousePointerClick,
+    },
+    {
+      title: "Pico diario",
+      value: (peak?.clicks ?? 0).toLocaleString("es-CO"),
+      helper: peak ? formatDate(peak.fecha) : "Sin actividad",
+      icon: Activity,
+    },
+    {
+      title: "Promedio diario",
+      value: average.toLocaleString("es-CO"),
+      helper: "Clicks por dia con datos",
+      icon: CalendarClock,
+    },
+  ];
+
+  return (
+    <section className="grid gap-4 md:grid-cols-3">
+      {cards.map((card) => {
+        const Icon = card.icon;
+
+        return (
+          <Card key={card.title}>
+            <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-muted-foreground">{card.title}</CardTitle>
+              <Icon className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-semibold tracking-normal">{card.value}</div>
+              <p className="mt-1 text-xs text-muted-foreground">{card.helper}</p>
+            </CardContent>
+          </Card>
+        );
+      })}
+    </section>
+  );
+}
