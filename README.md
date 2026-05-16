@@ -18,43 +18,11 @@ La aplicacion usa esta ruta:
 /stats/:codigo
 ```
 
-Ejemplo local:
-
-```txt
-http://localhost:5173/stats/PWqDH6
-```
-
 ## Configuracion
-
-Crea el archivo `.env` desde el ejemplo:
-
-```powershell
-cp .env.example .env
-```
 
 Variable requerida:
 
 - `VITE_API_URL`: URL base del API Gateway del modulo `lp-url-stats`.
-
-## Desarrollo
-
-Instalar dependencias:
-
-```powershell
-pnpm install
-```
-
-Levantar el servidor local:
-
-```powershell
-pnpm run dev
-```
-
-En Windows PowerShell, si se bloquea `pnpm.ps1`, usa:
-
-```powershell
-pnpm.cmd run dev
-```
 
 ## Validacion
 
@@ -84,7 +52,7 @@ terraform apply
 
 ## Deploy continuo
 
-El workflow `.github/workflows/deploy.yml` ejecuta:
+El workflow `.github/workflows/lp-stats-dashboard.yml` ejecuta:
 
 ```txt
 pnpm install --frozen-lockfile
@@ -95,11 +63,9 @@ aws cloudfront create-invalidation
 
 Variables de GitHub necesarias:
 
-- `VITE_API_URL`
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
 - `AWS_REGION`
-- `S3_BUCKET_NAME`
-- `CLOUDFRONT_DISTRIBUTION_ID`
-
-Secret necesario:
-
-- `AWS_ROLE_TO_ASSUME`
+- `S3_BUCKET_DASHBOARD`
+- `CF_DIST_DASHBOARD`
+- `VITE_API_URL`

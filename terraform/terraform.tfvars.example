@@ -1,4 +1,0 @@
-aws_region     = "us-east-1"
-environment    = "dev"
-bucket_name    = "lp-stats-dashboard-dev-195802271670"
-cf_price_class = "PriceClass_100"

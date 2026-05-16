@@ -1,7 +1,6 @@
 variable "aws_region" {
   description = "AWS region where resources will be created."
   type        = string
-  default     = "us-east-1"
 }
 
 variable "bucket_name" {
@@ -12,11 +11,9 @@ variable "bucket_name" {
 variable "cf_price_class" {
   description = "CloudFront price class."
   type        = string
-  default     = "PriceClass_100"
 }
 
 variable "environment" {
   description = "Deployment environment name."
   type        = string
-  default     = "dev"
 }
