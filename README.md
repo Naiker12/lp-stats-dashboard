@@ -1,20 +1,32 @@
 # lp-stats-dashboard
 
-SPA para consultar estadisticas de URLs acortadas. Usa React 18, Vite, TypeScript, componentes estilo shadcn/ui y Recharts.
+Dashboard SPA para consultar estadisticas de URLs acortadas.
+
+Tecnologias principales:
+
+- React 18
+- Vite
+- TypeScript
+- shadcn/ui
+- Recharts
 
 ## Ruta
 
-```http
+La aplicacion usa esta ruta:
+
+```txt
 /stats/:codigo
 ```
 
 Ejemplo local:
 
-```http
+```txt
 http://localhost:5173/stats/PWqDH6
 ```
 
 ## Configuracion
+
+Crea el archivo `.env` desde el ejemplo:
 
 ```powershell
 cp .env.example .env
@@ -26,12 +38,19 @@ Variable requerida:
 
 ## Desarrollo
 
+Instalar dependencias:
+
 ```powershell
 pnpm install
+```
+
+Levantar el servidor local:
+
+```powershell
 pnpm run dev
 ```
 
-En Windows PowerShell, si la politica de ejecucion bloquea `pnpm.ps1`, usa:
+En Windows PowerShell, si se bloquea `pnpm.ps1`, usa:
 
 ```powershell
 pnpm.cmd run dev
@@ -44,7 +63,16 @@ pnpm run lint
 pnpm run build
 ```
 
-## Deploy infraestructura
+## Infraestructura
+
+Terraform crea:
+
+- Bucket S3 privado para el build.
+- Distribucion CloudFront.
+- Origin Access Control para que CloudFront lea S3 sin publicar el bucket.
+- Respuestas 403/404 hacia `index.html` para soportar rutas SPA.
+
+Comandos:
 
 ```powershell
 cd terraform
@@ -54,19 +82,15 @@ terraform plan
 terraform apply
 ```
 
-Terraform crea:
-
-- Bucket S3 privado para el build.
-- CloudFront distribution.
-- Origin Access Control para que CloudFront lea S3 sin hacer publico el bucket.
-- Respuestas 403/404 hacia `index.html` para soportar rutas SPA como `/stats/:codigo`.
-
 ## Deploy continuo
 
 El workflow `.github/workflows/deploy.yml` ejecuta:
 
 ```txt
-pnpm install --frozen-lockfile -> pnpm run build -> aws s3 sync -> aws cloudfront create-invalidation
+pnpm install --frozen-lockfile
+pnpm run build
+aws s3 sync
+aws cloudfront create-invalidation
 ```
 
 Variables de GitHub necesarias:
