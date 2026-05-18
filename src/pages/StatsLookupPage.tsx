@@ -38,16 +38,16 @@ export function StatsLookupPage() {
               <TrendingUp className="h-4 w-4 text-accent" />
               Lectura diaria de visitas
             </div>
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-normal sm:text-6xl">
-              Consulta el rendimiento de tus enlaces cortos.
-            </h1>
+              <h1 className="max-w-3xl bg-gradient-to-br from-white to-white/55 bg-clip-text text-4xl font-semibold tracking-normal text-transparent sm:text-6xl">
+                Consulta el rendimiento de tus enlaces cortos.
+              </h1>
             <p className="max-w-2xl text-base leading-7 text-muted-foreground">
               Ingresa un codigo generado por el acortador para revisar clicks totales, pico diario y actividad por
               rango de fechas.
             </p>
           </div>
 
-          <Card className="border-primary/20 shadow-xl shadow-primary/5">
+          <Card className="glass-card border-primary/20">
             <CardHeader>
               <CardTitle>Buscar estadisticas</CardTitle>
             </CardHeader>

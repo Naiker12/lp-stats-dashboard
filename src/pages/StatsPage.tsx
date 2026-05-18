@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { DateRangePicker } from "../components/DateRangePicker";
 import { EmptyState } from "../components/EmptyState";
 import { KpiCards } from "../components/KpiCards";
+import { RecentActivityTable } from "../components/RecentActivityTable";
 import { StatsChart } from "../components/StatsChart";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -13,7 +14,11 @@ import { Input } from "../components/ui/input";
 import { useStats } from "../hooks/useStats";
 
 function toInputDate(date: Date) {
-  return date.toISOString().slice(0, 10);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }
 
 function defaultDateRange() {
@@ -27,6 +32,29 @@ function defaultDateRange() {
   };
 }
 
+function buildDailyRange(
+  daily: Array<{ fecha: string; clicks: number }> | undefined,
+  from: string,
+  to: string,
+) {
+  if (!from || !to) {
+    return daily ?? [];
+  }
+
+  const byDate = new Map((daily ?? []).map((entry) => [entry.fecha, entry.clicks]));
+  const result: Array<{ fecha: string; clicks: number }> = [];
+  const cursor = new Date(`${from}T00:00:00`);
+  const end = new Date(`${to}T00:00:00`);
+
+  while (cursor <= end) {
+    const fecha = toInputDate(cursor);
+    result.push({ fecha, clicks: byDate.get(fecha) ?? 0 });
+    cursor.setDate(cursor.getDate() + 1);
+  }
+
+  return result;
+}
+
 export function StatsPage() {
   const { codigo } = useParams();
   const initialRange = useMemo(defaultDateRange, []);
@@ -36,6 +64,10 @@ export function StatsPage() {
   const { data, loading, error } = useStats(codigo, dateRange.from, dateRange.to);
 
   const hasDailyData = Boolean(data?.daily.length);
+  const chartDaily = useMemo(
+    () => buildDailyRange(data?.daily, dateRange.from, dateRange.to),
+    [data?.daily, dateRange.from, dateRange.to],
+  );
 
   return (
     <main className="dashboard-shell">
@@ -71,6 +103,17 @@ export function StatsPage() {
             </Button>
           </form>
         </nav>
+
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Link className="inline-flex items-center gap-1 hover:text-foreground" to="/">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Inicio
+          </Link>
+          <span>/</span>
+          <span>Analytics</span>
+          <span>/</span>
+          <span className="rounded border border-white/10 bg-muted px-2 py-0.5 font-mono text-foreground">{codigo}</span>
+        </div>
 
         <header className="flex flex-col gap-4 border-b pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -116,7 +159,8 @@ export function StatsPage() {
         ) : data && hasDailyData ? (
           <>
             <KpiCards daily={data.daily} totalClicks={data.total_clicks} />
-            <StatsChart daily={data.daily} />
+            <StatsChart daily={chartDaily} />
+            <RecentActivityTable daily={data.daily} />
           </>
         ) : data ? (
           <>
