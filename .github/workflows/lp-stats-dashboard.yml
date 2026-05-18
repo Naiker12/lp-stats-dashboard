@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/lp-stats-dashboard.yml"
+      - ".env.example"
       - "src/**"
       - "index.html"
       - "package.json"
