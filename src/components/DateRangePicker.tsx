@@ -1,27 +1,25 @@
 import { CalendarDays, RefreshCw } from "lucide-react";
-import { useState } from "react";
 
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
 type DateRangePickerProps = {
   from: string;
   to: string;
   onChange: (from: string, to: string) => void;
+  loading?: boolean;
 };
 
-export function DateRangePicker({ from, to, onChange }: DateRangePickerProps) {
-  const [draftFrom, setDraftFrom] = useState(from);
-  const [draftTo, setDraftTo] = useState(to);
+export function DateRangePicker({ from, to, onChange, loading = false }: DateRangePickerProps) {
+  function updateFrom(nextFrom: string) {
+    onChange(nextFrom, nextFrom > to ? nextFrom : to);
+  }
+
+  function updateTo(nextTo: string) {
+    onChange(nextTo < from ? nextTo : from, nextTo);
+  }
 
   return (
-    <form
-      className="flex flex-col gap-3 md:flex-row md:items-end"
-      onSubmit={(event) => {
-        event.preventDefault();
-        onChange(draftFrom, draftTo);
-      }}
-    >
+    <div className="flex flex-col gap-3 md:flex-row md:items-end">
       <div className="grid gap-1.5">
         <label className="text-xs font-medium text-muted-foreground" htmlFor="from">
           Desde
@@ -31,10 +29,10 @@ export function DateRangePicker({ from, to, onChange }: DateRangePickerProps) {
           <Input
             className="w-full border-white/10 bg-white/[0.04] pl-9 text-foreground md:w-40"
             id="from"
-            max={draftTo}
-            onChange={(event) => setDraftFrom(event.target.value)}
+            max={to}
+            onChange={(event) => updateFrom(event.target.value)}
             type="date"
-            value={draftFrom}
+            value={from}
           />
         </div>
       </div>
@@ -48,18 +46,18 @@ export function DateRangePicker({ from, to, onChange }: DateRangePickerProps) {
           <Input
             className="w-full border-white/10 bg-white/[0.04] pl-9 text-foreground md:w-40"
             id="to"
-            min={draftFrom}
-            onChange={(event) => setDraftTo(event.target.value)}
+            min={from}
+            onChange={(event) => updateTo(event.target.value)}
             type="date"
-            value={draftTo}
+            value={to}
           />
         </div>
       </div>
 
-      <Button className="w-full md:mb-0 md:w-auto" type="submit">
-        <RefreshCw className="h-4 w-4" />
-        Actualizar
-      </Button>
-    </form>
+      <div className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-primary/25 bg-primary/10 px-3 text-sm font-medium text-primary md:mb-0">
+        <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+        En vivo
+      </div>
+    </div>
   );
 }

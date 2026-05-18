@@ -13,6 +13,8 @@ import { Card, CardContent } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { useStats } from "../hooks/useStats";
 
+type RangePreset = "7d" | "30d" | "Todo";
+
 function toInputDate(date: Date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -22,9 +24,20 @@ function toInputDate(date: Date) {
 }
 
 function defaultDateRange() {
+  return getPresetRange("30d");
+}
+
+function getPresetRange(preset: RangePreset) {
   const to = new Date();
   const from = new Date();
-  from.setDate(to.getDate() - 29);
+
+  if (preset === "7d") {
+    from.setDate(to.getDate() - 6);
+  } else if (preset === "30d") {
+    from.setDate(to.getDate() - 29);
+  } else {
+    from.setMonth(0, 1);
+  }
 
   return {
     from: toInputDate(from),
@@ -59,6 +72,7 @@ export function StatsPage() {
   const { codigo } = useParams();
   const initialRange = useMemo(defaultDateRange, []);
   const [dateRange, setDateRange] = useState(initialRange);
+  const [activePreset, setActivePreset] = useState<RangePreset | "custom">("30d");
   const [nextCode, setNextCode] = useState("");
   const navigate = useNavigate();
   const { data, loading, error } = useStats(codigo, dateRange.from, dateRange.to);
@@ -68,6 +82,16 @@ export function StatsPage() {
     () => buildDailyRange(data?.daily, dateRange.from, dateRange.to),
     [data?.daily, dateRange.from, dateRange.to],
   );
+
+  function handleDateRangeChange(from: string, to: string) {
+    setActivePreset("custom");
+    setDateRange({ from, to });
+  }
+
+  function handlePresetChange(preset: RangePreset) {
+    setActivePreset(preset);
+    setDateRange(getPresetRange(preset));
+  }
 
   return (
     <main className="dashboard-shell">
@@ -129,7 +153,8 @@ export function StatsPage() {
 
           <DateRangePicker
             from={dateRange.from}
-            onChange={(from, to) => setDateRange({ from, to })}
+            loading={loading}
+            onChange={handleDateRangeChange}
             to={dateRange.to}
           />
         </header>
@@ -159,7 +184,11 @@ export function StatsPage() {
         ) : data && hasDailyData ? (
           <>
             <KpiCards daily={data.daily} totalClicks={data.total_clicks} />
-            <StatsChart daily={chartDaily} />
+            <StatsChart
+              activeRange={activePreset === "custom" ? undefined : activePreset}
+              daily={chartDaily}
+              onRangeChange={handlePresetChange}
+            />
             <RecentActivityTable daily={data.daily} />
           </>
         ) : data ? (

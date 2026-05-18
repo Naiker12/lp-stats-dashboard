@@ -6,6 +6,8 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 
 type StatsChartProps = {
   daily: DailyEntry[];
+  activeRange?: "7d" | "30d" | "Todo";
+  onRangeChange: (range: "7d" | "30d" | "Todo") => void;
 };
 
 function formatDate(value: string) {
@@ -15,7 +17,7 @@ function formatDate(value: string) {
   }).format(new Date(`${value}T00:00:00`));
 }
 
-export function StatsChart({ daily }: StatsChartProps) {
+export function StatsChart({ daily, activeRange, onRangeChange }: StatsChartProps) {
   const data = daily.map((entry) => ({
     ...entry,
     label: formatDate(entry.fecha),
@@ -38,9 +40,10 @@ export function StatsChart({ daily }: StatsChartProps) {
           {["7d", "30d", "Todo"].map((tab) => (
             <button
               className={`h-7 rounded px-3 text-xs font-medium transition-colors ${
-                tab === "30d" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                tab === activeRange ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
               }`}
               key={tab}
+              onClick={() => onRangeChange(tab as "7d" | "30d" | "Todo")}
               type="button"
             >
               {tab}
