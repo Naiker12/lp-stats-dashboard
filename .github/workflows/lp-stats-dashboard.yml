@@ -20,6 +20,12 @@ on:
 permissions:
   contents: read
 
+env:
+  AWS_REGION: us-east-1
+  S3_BUCKET_DASHBOARD: lp-stats-dashboard-dev-195802271670
+  CF_DIST_DASHBOARD: E12W87WE081AIL
+  VITE_API_URL: https://bz3sk0ouyl.execute-api.us-east-1.amazonaws.com
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -45,17 +51,17 @@ jobs:
       - name: Build
         run: pnpm run build
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_API_URL: ${{ env.VITE_API_URL }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Sync S3
-        run: aws s3 sync dist "s3://${{ secrets.S3_BUCKET_DASHBOARD }}" --delete
+        run: aws s3 sync dist "s3://${{ env.S3_BUCKET_DASHBOARD }}" --delete
 
       - name: Invalidate CloudFront
-        run: aws cloudfront create-invalidation --distribution-id "${{ secrets.CF_DIST_DASHBOARD }}" --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id "${{ env.CF_DIST_DASHBOARD }}" --paths "/*"
