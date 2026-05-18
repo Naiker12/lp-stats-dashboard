@@ -49,7 +49,7 @@ export function StatsChart({ daily }: StatsChartProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <ChartContainer className="h-80 w-full" config={chartConfig}>
+        <ChartContainer className="h-80 w-full xl:h-[25rem]" config={chartConfig}>
           <AreaChart data={data} margin={{ top: 8, right: 18, bottom: 0, left: 0 }}>
             <defs>
               <linearGradient id="clicksGradient" x1="0" x2="0" y1="0" y2="1">

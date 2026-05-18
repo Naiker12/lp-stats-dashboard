@@ -21,7 +21,7 @@ export function StatsLookupPage() {
 
   return (
     <main className="dashboard-shell">
-      <section className="relative mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-8 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <section className="relative mx-auto flex min-h-dvh w-full max-w-[92rem] flex-col gap-8 px-4 py-5 sm:px-6 sm:py-6 lg:px-10 xl:px-12 2xl:max-w-[104rem]">
         <nav className="animate-soft-in flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img alt="LinkPilot Analytics" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
@@ -32,16 +32,16 @@ export function StatsLookupPage() {
           </div>
         </nav>
 
-        <div className="grid flex-1 items-center gap-8 py-6 sm:py-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,430px)] lg:gap-12">
+        <div className="grid flex-1 items-center gap-8 py-6 sm:py-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(380px,460px)] lg:gap-14 xl:gap-20">
           <div className="animate-fade-up grid gap-5">
             <div className="inline-flex w-fit items-center gap-2 rounded-md border bg-card px-3 py-1.5 text-sm text-muted-foreground shadow-sm">
               <TrendingUp className="h-4 w-4 text-accent" />
               Lectura diaria de visitas
             </div>
-              <h1 className="max-w-3xl bg-gradient-to-br from-white to-white/55 bg-clip-text text-4xl font-semibold tracking-normal text-transparent sm:text-6xl">
+              <h1 className="max-w-4xl bg-gradient-to-br from-white to-white/60 bg-clip-text text-4xl font-semibold tracking-normal text-transparent sm:text-6xl xl:text-7xl">
                 Consulta el rendimiento de tus enlaces cortos.
               </h1>
-            <p className="max-w-2xl text-base leading-7 text-muted-foreground">
+            <p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               Ingresa un codigo generado por el acortador para revisar clicks totales, pico diario y actividad por
               rango de fechas.
             </p>

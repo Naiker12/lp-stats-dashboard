@@ -71,7 +71,7 @@ export function StatsPage() {
 
   return (
     <main className="dashboard-shell">
-      <div className="relative mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+      <div className="relative mx-auto flex min-h-dvh w-full max-w-[92rem] flex-col gap-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-10 xl:px-12 2xl:max-w-[104rem]">
         <nav className="animate-soft-in flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Link className="flex w-fit items-center gap-3" to="/">
             <img alt="LinkPilot Analytics" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
@@ -122,7 +122,7 @@ export function StatsPage() {
               Dashboard activo
             </Badge>
             <h1 className="text-3xl font-semibold tracking-normal sm:text-4xl">Codigo {codigo}</h1>
-            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+            <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
               Revisa visitas, picos y actividad reciente por rango de fechas.
             </p>
           </div>

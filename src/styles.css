@@ -4,16 +4,16 @@
 
 @layer base {
   :root {
-    --background: 240 5% 4%;
+    --background: 220 22% 7%;
     --foreground: 0 0% 98%;
-    --card: 240 6% 8%;
+    --card: 218 18% 11%;
     --card-foreground: 0 0% 98%;
     --primary: 174 72% 42%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 5% 15%;
+    --secondary: 217 14% 17%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 5% 13%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 217 16% 15%;
+    --muted-foreground: 215 12% 72%;
     --accent: 39 92% 56%;
     --accent-foreground: 32 80% 12%;
     --destructive: 0 72% 51%;
@@ -56,9 +56,9 @@
     position: relative;
     overflow-x: hidden;
     background:
-      linear-gradient(130deg, rgba(20, 184, 166, 0.12), transparent 34%),
-      linear-gradient(300deg, rgba(245, 158, 11, 0.1), transparent 32%),
-      linear-gradient(180deg, #09090b 0%, #101113 48%, #09090b 100%);
+      radial-gradient(circle at 8% 12%, rgba(20, 184, 166, 0.2), transparent 28rem),
+      radial-gradient(circle at 92% 82%, rgba(245, 158, 11, 0.14), transparent 30rem),
+      linear-gradient(115deg, #0c1718 0%, #10141a 43%, #16120d 100%);
   }
 
   .dashboard-shell::before {
@@ -86,9 +86,9 @@
   }
 
   .glass-card {
-    background: rgba(24, 24, 27, 0.72);
-    border-color: rgba(255, 255, 255, 0.11);
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+    background: rgba(18, 25, 32, 0.78);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
     backdrop-filter: blur(16px);
   }
 
