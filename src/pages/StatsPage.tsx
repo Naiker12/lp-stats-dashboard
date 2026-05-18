@@ -71,8 +71,8 @@ export function StatsPage() {
 
   return (
     <main className="dashboard-shell">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <nav className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+        <nav className="animate-soft-in flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Link className="flex w-fit items-center gap-3" to="/">
             <img alt="LinkPilot Analytics" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
             <div>
@@ -81,7 +81,7 @@ export function StatsPage() {
             </div>
           </Link>
           <form
-            className="flex gap-2"
+            className="flex w-full gap-2 sm:w-auto"
             onSubmit={(event) => {
               event.preventDefault();
               const value = nextCode.trim();
@@ -93,7 +93,7 @@ export function StatsPage() {
           >
             <Input
               aria-label="Consultar otro codigo"
-              className="h-10 w-full sm:w-52"
+              className="h-10 w-full border-white/10 bg-white/[0.04] text-foreground placeholder:text-zinc-500 sm:w-52"
               onChange={(event) => setNextCode(event.target.value)}
               placeholder="Otro codigo"
               value={nextCode}
@@ -104,7 +104,7 @@ export function StatsPage() {
           </form>
         </nav>
 
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="animate-fade-up flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
           <Link className="inline-flex items-center gap-1 hover:text-foreground" to="/">
             <ArrowLeft className="h-3.5 w-3.5" />
             Inicio
@@ -115,7 +115,7 @@ export function StatsPage() {
           <span className="rounded border border-white/10 bg-muted px-2 py-0.5 font-mono text-foreground">{codigo}</span>
         </div>
 
-        <header className="flex flex-col gap-4 border-b pb-5 lg:flex-row lg:items-end lg:justify-between">
+        <header className="animate-fade-up delay-100 flex flex-col gap-4 border-b border-white/10 pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Badge className="mb-3 gap-2" variant="secondary">
               <span className="h-2 w-2 rounded-full bg-primary" />

@@ -21,8 +21,8 @@ export function StatsLookupPage() {
 
   return (
     <main className="dashboard-shell">
-      <section className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-8 px-4 py-6 sm:px-6 lg:px-8">
-        <nav className="flex items-center justify-between">
+      <section className="relative mx-auto flex min-h-dvh w-full max-w-7xl flex-col gap-8 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+        <nav className="animate-soft-in flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img alt="LinkPilot Analytics" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
             <div>
@@ -32,8 +32,8 @@ export function StatsLookupPage() {
           </div>
         </nav>
 
-        <div className="grid flex-1 items-center gap-8 lg:grid-cols-[1fr_0.9fr]">
-          <div className="grid gap-5">
+        <div className="grid flex-1 items-center gap-8 py-6 sm:py-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,430px)] lg:gap-12">
+          <div className="animate-fade-up grid gap-5">
             <div className="inline-flex w-fit items-center gap-2 rounded-md border bg-card px-3 py-1.5 text-sm text-muted-foreground shadow-sm">
               <TrendingUp className="h-4 w-4 text-accent" />
               Lectura diaria de visitas
@@ -47,7 +47,7 @@ export function StatsLookupPage() {
             </p>
           </div>
 
-          <Card className="glass-card border-primary/20">
+          <Card className="glass-card hover-lift animate-fade-up delay-200 border-primary/20">
             <CardHeader>
               <CardTitle>Buscar estadisticas</CardTitle>
             </CardHeader>
@@ -57,13 +57,13 @@ export function StatsLookupPage() {
                   <BarChart3 className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-muted-foreground" />
                   <Input
                     aria-label="Codigo del enlace"
-                    className="h-14 pl-12 text-base"
+                    className="h-14 border-white/10 bg-white/[0.04] pl-12 text-base text-foreground placeholder:text-zinc-500 focus-visible:border-primary/40 focus-visible:ring-primary/25"
                     onChange={(event) => setCodigo(event.target.value)}
                     placeholder="Codigo del enlace"
                     value={codigo}
                   />
                 </div>
-                <Button className="h-12 w-full sm:w-fit" disabled={!codigo.trim()} type="submit">
+                <Button className="h-12 w-full transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20 sm:w-fit" disabled={!codigo.trim()} type="submit">
                   <Search className="h-4 w-4" />
                   Consultar
                 </Button>

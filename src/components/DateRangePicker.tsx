@@ -29,7 +29,7 @@ export function DateRangePicker({ from, to, onChange }: DateRangePickerProps) {
         <div className="relative">
           <CalendarDays className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
-            className="w-full pl-9 md:w-40"
+            className="w-full border-white/10 bg-white/[0.04] pl-9 text-foreground md:w-40"
             id="from"
             max={draftTo}
             onChange={(event) => setDraftFrom(event.target.value)}
@@ -46,7 +46,7 @@ export function DateRangePicker({ from, to, onChange }: DateRangePickerProps) {
         <div className="relative">
           <CalendarDays className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
-            className="w-full pl-9 md:w-40"
+            className="w-full border-white/10 bg-white/[0.04] pl-9 text-foreground md:w-40"
             id="to"
             min={draftFrom}
             onChange={(event) => setDraftTo(event.target.value)}
@@ -56,7 +56,7 @@ export function DateRangePicker({ from, to, onChange }: DateRangePickerProps) {
         </div>
       </div>
 
-      <Button className="md:mb-0" type="submit">
+      <Button className="w-full md:mb-0 md:w-auto" type="submit">
         <RefreshCw className="h-4 w-4" />
         Actualizar
       </Button>

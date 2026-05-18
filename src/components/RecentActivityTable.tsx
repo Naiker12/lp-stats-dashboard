@@ -17,7 +17,7 @@ export function RecentActivityTable({ daily }: RecentActivityTableProps) {
   const rows = daily.filter((entry) => entry.clicks > 0).slice(-8).reverse();
 
   return (
-    <Card className="overflow-hidden shadow-sm">
+    <Card className="animate-fade-up delay-300 overflow-hidden shadow-sm">
       <div className="border-b border-white/10 p-5">
         <h2 className="text-sm font-semibold">Actividad reciente</h2>
         <p className="mt-1 text-xs text-muted-foreground">Ultimos registros con al menos 1 click</p>

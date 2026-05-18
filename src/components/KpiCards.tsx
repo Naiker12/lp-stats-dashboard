@@ -49,12 +49,12 @@ export function KpiCards({ totalClicks, daily }: KpiCardsProps) {
   ];
 
   return (
-    <section className="grid gap-4 md:grid-cols-3">
+    <section className="animate-fade-up delay-200 grid gap-4 md:grid-cols-3">
       {cards.map((card) => {
         const Icon = card.icon;
 
         return (
-          <Card className="bg-card/90 shadow-sm" key={card.title}>
+          <Card className="hover-lift bg-card/90 shadow-sm" key={card.title}>
             <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-muted-foreground">{card.title}</CardTitle>
               <div className="flex h-9 w-9 items-center justify-center rounded-md bg-secondary">

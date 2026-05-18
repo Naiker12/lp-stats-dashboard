@@ -28,7 +28,7 @@ export function StatsChart({ daily }: StatsChartProps) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="shadow-sm">
+    <Card className="animate-fade-up delay-300 shadow-sm">
       <CardHeader className="flex-row items-start justify-between gap-4 space-y-0">
         <div>
           <CardTitle>Actividad diaria</CardTitle>
