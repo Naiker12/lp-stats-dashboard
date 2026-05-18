@@ -74,9 +74,9 @@ export function StatsPage() {
       <div className="relative mx-auto flex min-h-dvh w-full max-w-[92rem] flex-col gap-6 px-4 py-5 sm:px-6 sm:py-6 lg:px-10 xl:px-12 2xl:max-w-[104rem]">
         <nav className="animate-soft-in flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Link className="flex w-fit items-center gap-3" to="/">
-            <img alt="LinkPilot Analytics" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
+            <img alt="LinkPilot Estadisticas" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
             <div>
-              <p className="text-sm font-semibold leading-none">LinkPilot Analytics</p>
+              <p className="text-sm font-semibold leading-none">LinkPilot Estadisticas</p>
               <p className="mt-1 text-xs text-muted-foreground">Estadisticas de enlaces</p>
             </div>
           </Link>
@@ -110,7 +110,7 @@ export function StatsPage() {
             Inicio
           </Link>
           <span>/</span>
-          <span>Analytics</span>
+          <span>Estadisticas</span>
           <span>/</span>
           <span className="rounded border border-white/10 bg-muted px-2 py-0.5 font-mono text-foreground">{codigo}</span>
         </div>

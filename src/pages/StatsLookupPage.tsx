@@ -24,9 +24,9 @@ export function StatsLookupPage() {
       <section className="relative mx-auto flex min-h-dvh w-full max-w-[92rem] flex-col gap-8 px-4 py-5 sm:px-6 sm:py-6 lg:px-10 xl:px-12 2xl:max-w-[104rem]">
         <nav className="animate-soft-in flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img alt="LinkPilot Analytics" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
+            <img alt="LinkPilot Estadisticas" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
             <div>
-              <p className="text-sm font-semibold leading-none">LinkPilot Analytics</p>
+              <p className="text-sm font-semibold leading-none">LinkPilot Estadisticas</p>
               <p className="mt-1 text-xs text-muted-foreground">Estadisticas de enlaces</p>
             </div>
           </div>
