@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: 210 24% 98%;
-    --foreground: 222 34% 12%;
+    --background: 200 28% 97%;
+    --foreground: 216 34% 12%;
     --card: 0 0% 100%;
     --card-foreground: 222 34% 12%;
-    --primary: 178 68% 28%;
+    --primary: 184 60% 26%;
     --primary-foreground: 0 0% 100%;
     --secondary: 214 32% 91%;
     --secondary-foreground: 222 34% 16%;
@@ -47,7 +47,12 @@
   .dashboard-shell {
     min-height: 100vh;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(244, 247, 250, 0.98)),
-      radial-gradient(circle at top left, rgba(22, 119, 113, 0.12), transparent 32%);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(240, 245, 247, 0.98)),
+      linear-gradient(135deg, rgba(18, 52, 59, 0.14), transparent 34%),
+      linear-gradient(315deg, rgba(245, 158, 11, 0.1), transparent 28%);
+  }
+
+  .brand-mark {
+    box-shadow: 0 18px 45px rgba(18, 52, 59, 0.18);
   }
 }

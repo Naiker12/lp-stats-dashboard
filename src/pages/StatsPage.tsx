@@ -1,6 +1,6 @@
-import { AlertCircle, ExternalLink, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowLeft, Loader2, Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { DateRangePicker } from "../components/DateRangePicker";
 import { EmptyState } from "../components/EmptyState";
@@ -9,7 +9,7 @@ import { StatsChart } from "../components/StatsChart";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
-import { Separator } from "../components/ui/separator";
+import { Input } from "../components/ui/input";
 import { useStats } from "../hooks/useStats";
 
 function toInputDate(date: Date) {
@@ -31,6 +31,8 @@ export function StatsPage() {
   const { codigo } = useParams();
   const initialRange = useMemo(defaultDateRange, []);
   const [dateRange, setDateRange] = useState(initialRange);
+  const [nextCode, setNextCode] = useState("");
+  const navigate = useNavigate();
   const { data, loading, error } = useStats(codigo, dateRange.from, dateRange.to);
 
   const hasDailyData = Boolean(data?.daily.length);
@@ -38,15 +40,47 @@ export function StatsPage() {
   return (
     <main className="dashboard-shell">
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+        <nav className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <Link className="flex w-fit items-center gap-3" to="/">
+            <img alt="LinkPilot Analytics" className="brand-mark h-10 w-10 rounded-md" src="/logo.svg" />
+            <div>
+              <p className="text-sm font-semibold leading-none">LinkPilot Analytics</p>
+              <p className="mt-1 text-xs text-muted-foreground">Estadisticas de enlaces</p>
+            </div>
+          </Link>
+          <form
+            className="flex gap-2"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const value = nextCode.trim();
+              if (value) {
+                navigate(`/stats/${encodeURIComponent(value)}`);
+                setNextCode("");
+              }
+            }}
+          >
+            <Input
+              aria-label="Consultar otro codigo"
+              className="h-10 w-full sm:w-52"
+              onChange={(event) => setNextCode(event.target.value)}
+              placeholder="Otro codigo"
+              value={nextCode}
+            />
+            <Button aria-label="Consultar" className="h-10 px-3" type="submit" variant="outline">
+              <Search className="h-4 w-4" />
+            </Button>
+          </form>
+        </nav>
+
         <header className="flex flex-col gap-4 border-b pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <Badge className="mb-2 gap-2" variant="secondary">
+            <Badge className="mb-3 gap-2" variant="secondary">
               <span className="h-2 w-2 rounded-full bg-primary" />
-              Dashboard de estadisticas
+              Dashboard activo
             </Badge>
-            <h1 className="text-2xl font-semibold tracking-normal sm:text-3xl">Codigo {codigo}</h1>
+            <h1 className="text-3xl font-semibold tracking-normal sm:text-4xl">Codigo {codigo}</h1>
             <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-              Lectura diaria del endpoint de estadisticas para monitorear visitas, picos y actividad reciente.
+              Revisa visitas, picos y actividad reciente por rango de fechas.
             </p>
           </div>
 
@@ -84,22 +118,22 @@ export function StatsPage() {
             <KpiCards daily={data.daily} totalClicks={data.total_clicks} />
             <StatsChart daily={data.daily} />
           </>
+        ) : data ? (
+          <>
+            <KpiCards daily={[]} totalClicks={data.total_clicks} />
+            <EmptyState codigo={codigo ?? ""} />
+          </>
         ) : (
           <EmptyState codigo={codigo ?? ""} />
         )}
 
-        <footer className="mt-auto flex flex-col gap-2 border-t pt-4 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <span>
-            API configurada por <code className="rounded bg-muted px-1 py-0.5">VITE_API_URL</code>
-          </span>
-          <Separator className="hidden h-4 w-px sm:block" />
-          <a
-            className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
-            href={`/stats/${codigo ?? ""}`}
-          >
-            Ruta SPA activa
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+        <footer className="mt-auto border-t pt-4">
+          <Button asChild type="button" variant="ghost">
+            <Link to="/">
+              <ArrowLeft className="h-4 w-4" />
+              Consultar otro enlace
+            </Link>
+          </Button>
         </footer>
       </div>
     </main>

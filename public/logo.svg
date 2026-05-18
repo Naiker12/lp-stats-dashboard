@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">LinkPilot Analytics logo</title>
+  <desc id="desc">Marca para el dashboard de estadisticas.</desc>
+  <rect width="160" height="160" rx="32" fill="#12343b"/>
+  <path d="M36 112h18V74H36v38Z" fill="#f8fafc"/>
+  <path d="M70 112h18V48H70v64Z" fill="#14b8a6"/>
+  <path d="M104 112h18V62h-18v50Z" fill="#f59e0b"/>
+  <path d="M34 124h92" stroke="#f8fafc" stroke-width="10" stroke-linecap="round"/>
+  <path d="M38 42c18 10 34 13 50 8 12-4 22-12 34-24" fill="none" stroke="#f8fafc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

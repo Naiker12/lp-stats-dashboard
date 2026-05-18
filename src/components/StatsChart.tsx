@@ -1,10 +1,4 @@
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import type { DailyEntry } from "../services/api";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
@@ -34,9 +28,9 @@ export function StatsChart({ daily }: StatsChartProps) {
   } satisfies ChartConfig;
 
   return (
-    <Card>
+    <Card className="shadow-sm">
       <CardHeader>
-        <CardTitle>Clicks diarios</CardTitle>
+        <CardTitle>Actividad diaria</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer className="h-80 w-full" config={chartConfig}>
