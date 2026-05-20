@@ -70,6 +70,7 @@ function buildDailyRange(
 
 export function StatsPage() {
   const { codigo } = useParams();
+  const isAllUrls = !codigo;
   const initialRange = useMemo(defaultDateRange, []);
   const [dateRange, setDateRange] = useState(initialRange);
   const [activePreset, setActivePreset] = useState<RangePreset | "custom">("30d");
@@ -124,6 +125,11 @@ export function StatsPage() {
             <Button aria-label="Consultar" className="h-10 px-3" type="submit" variant="outline">
               <Search className="h-4 w-4" />
             </Button>
+            {!isAllUrls ? (
+              <Button asChild className="h-10" type="button" variant="outline">
+                <Link to="/stats">Todas</Link>
+              </Button>
+            ) : null}
           </form>
         </nav>
 
@@ -135,7 +141,9 @@ export function StatsPage() {
           <span>/</span>
           <span>Estadisticas</span>
           <span>/</span>
-          <span className="rounded border border-white/10 bg-muted px-2 py-0.5 font-mono text-foreground">{codigo}</span>
+          <span className="rounded border border-white/10 bg-muted px-2 py-0.5 font-mono text-foreground">
+            {isAllUrls ? "Todas" : codigo}
+          </span>
         </div>
 
         <header className="animate-fade-up delay-100 flex flex-col gap-4 border-b border-white/10 pb-5 lg:flex-row lg:items-end lg:justify-between">
@@ -144,9 +152,13 @@ export function StatsPage() {
               <span className="h-2 w-2 rounded-full bg-primary" />
               Dashboard activo
             </Badge>
-            <h1 className="text-3xl font-semibold tracking-normal sm:text-4xl">Codigo {codigo}</h1>
+            <h1 className="text-3xl font-semibold tracking-normal sm:text-4xl">
+              {isAllUrls ? "Todas las URLs" : `Codigo ${codigo}`}
+            </h1>
             <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
-              Revisa visitas, picos y actividad reciente por rango de fechas.
+              {isAllUrls
+                ? "Revisa visitas agregadas de todos los enlaces por rango de fechas."
+                : "Revisa visitas, picos y actividad reciente por rango de fechas."}
             </p>
           </div>
 
@@ -189,17 +201,17 @@ export function StatsPage() {
               onRangeChange={handlePresetChange}
             />
             <RecentActivityTable daily={chartDaily} />
-            {data.daily.length === 0 ? <EmptyState codigo={codigo ?? ""} /> : null}
+            {data.daily.length === 0 ? <EmptyState codigo={isAllUrls ? "todas las URLs" : (codigo ?? "")} /> : null}
           </>
         ) : (
-          <EmptyState codigo={codigo ?? ""} />
+          <EmptyState codigo={isAllUrls ? "todas las URLs" : (codigo ?? "")} />
         )}
 
         <footer className="mt-auto border-t pt-4">
           <Button asChild type="button" variant="ghost">
             <Link to="/">
               <ArrowLeft className="h-4 w-4" />
-              Consultar otro enlace
+              Ver todas las URLs
             </Link>
           </Button>
         </footer>

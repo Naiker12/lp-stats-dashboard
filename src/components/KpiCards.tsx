@@ -25,7 +25,8 @@ export function KpiCards({ totalClicks, daily }: KpiCardsProps) {
     return current;
   }, null);
 
-  const average = daily.length > 0 ? Math.round(totalClicks / daily.length) : 0;
+  const daysWithClicks = daily.filter((entry) => entry.clicks > 0);
+  const average = daysWithClicks.length > 0 ? Math.round(totalClicks / daysWithClicks.length) : 0;
 
   const cards = [
     {
@@ -43,7 +44,7 @@ export function KpiCards({ totalClicks, daily }: KpiCardsProps) {
     {
       title: "Promedio",
       value: average.toLocaleString("es-CO"),
-      helper: "Clicks por dia con datos",
+      helper: `${daysWithClicks.length} dias con datos`,
       icon: CalendarClock,
     },
   ];

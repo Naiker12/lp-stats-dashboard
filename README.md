@@ -12,11 +12,14 @@ Tecnologias principales:
 
 ## Ruta
 
-La aplicacion usa esta ruta:
+La aplicacion usa estas rutas:
 
 ```txt
+/stats
 /stats/:codigo
 ```
+
+`/stats` muestra el agregado de todas las URLs. `/stats/:codigo` filtra un enlace corto puntual.
 
 ## Configuracion
 

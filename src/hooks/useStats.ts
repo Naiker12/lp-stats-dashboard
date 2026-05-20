@@ -16,11 +16,6 @@ export function useStats(codigo: string | undefined, from?: string, to?: string)
   });
 
   useEffect(() => {
-    if (!codigo) {
-      setState({ data: null, loading: false, error: new Error("Codigo no encontrado en la ruta.") });
-      return;
-    }
-
     const controller = new AbortController();
 
     setState((current) => ({ ...current, loading: true, error: null }));

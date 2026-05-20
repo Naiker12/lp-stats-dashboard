@@ -1,12 +1,15 @@
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { StatsPage } from "./pages/StatsPage";
-import { StatsLookupPage } from "./pages/StatsLookupPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <StatsLookupPage />,
+    element: <StatsPage />,
+  },
+  {
+    path: "/stats",
+    element: <StatsPage />,
   },
   {
     path: "/stats/:codigo",

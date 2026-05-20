@@ -25,8 +25,9 @@ if (!apiUrl) {
   throw new Error("VITE_API_URL is required");
 }
 
-export async function getStats(codigo: string, from?: string, to?: string): Promise<StatsResponse> {
-  const url = new URL(`/stats/${encodeURIComponent(codigo)}`, apiUrl);
+export async function getStats(codigo?: string, from?: string, to?: string): Promise<StatsResponse> {
+  const path = codigo ? `/stats/${encodeURIComponent(codigo)}` : "/stats";
+  const url = new URL(path, apiUrl);
 
   if (from) {
     url.searchParams.set("from", from);
