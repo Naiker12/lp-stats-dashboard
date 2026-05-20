@@ -16,8 +16,8 @@ export function EmptyState({ codigo }: EmptyStateProps) {
         <div className="max-w-md">
           <h2 className="text-lg font-semibold">Aun no hay visitas en este rango</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            El codigo <span className="font-medium text-foreground">{codigo}</span> existe en la consulta, pero no
-            registra actividad para las fechas seleccionadas.
+            El codigo <span className="font-medium text-foreground">{codigo}</span> esta conectado, pero no registra
+            actividad para las fechas seleccionadas.
           </p>
         </div>
         <div className="inline-flex items-center gap-2 rounded-md border bg-muted px-3 py-2 text-xs text-muted-foreground">

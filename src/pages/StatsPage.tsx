@@ -77,7 +77,6 @@ export function StatsPage() {
   const navigate = useNavigate();
   const { data, loading, error } = useStats(codigo, dateRange.from, dateRange.to);
 
-  const hasDailyData = Boolean(data?.daily.length);
   const chartDaily = useMemo(
     () => buildDailyRange(data?.daily, dateRange.from, dateRange.to),
     [data?.daily, dateRange.from, dateRange.to],
@@ -181,20 +180,16 @@ export function StatsPage() {
               </Button>
             </CardContent>
           </Card>
-        ) : data && hasDailyData ? (
+        ) : data ? (
           <>
-            <KpiCards daily={data.daily} totalClicks={data.total_clicks} />
+            <KpiCards daily={chartDaily} totalClicks={data.total_clicks} />
             <StatsChart
               activeRange={activePreset === "custom" ? undefined : activePreset}
               daily={chartDaily}
               onRangeChange={handlePresetChange}
             />
-            <RecentActivityTable daily={data.daily} />
-          </>
-        ) : data ? (
-          <>
-            <KpiCards daily={[]} totalClicks={data.total_clicks} />
-            <EmptyState codigo={codigo ?? ""} />
+            <RecentActivityTable daily={chartDaily} />
+            {data.daily.length === 0 ? <EmptyState codigo={codigo ?? ""} /> : null}
           </>
         ) : (
           <EmptyState codigo={codigo ?? ""} />

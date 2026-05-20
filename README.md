@@ -49,23 +49,3 @@ terraform validate
 terraform plan
 terraform apply
 ```
-
-## Deploy continuo
-
-El workflow `.github/workflows/lp-stats-dashboard.yml` ejecuta:
-
-```txt
-pnpm install --frozen-lockfile
-pnpm run build
-aws s3 sync
-aws cloudfront create-invalidation
-```
-
-Variables de GitHub necesarias:
-
-- `AWS_ACCESS_KEY_ID`
-- `AWS_SECRET_ACCESS_KEY`
-- `AWS_REGION`
-- `S3_BUCKET_DASHBOARD`
-- `CF_DIST_DASHBOARD`
-- `VITE_API_URL`
